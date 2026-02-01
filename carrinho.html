@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Carrinho | Torino</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Seu Carrinho</h2>
+<div id="lista"></div>
+
+<a href="checkout.html" class="btn">Finalizar Pedido</a>
+
+<script>
+const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+const lista = document.getElementById("lista");
+
+let total = 0;
+
+carrinho.forEach(item => {
+  const preco = item.tipo === "grade"
+    ? item.produto.precoGrade * item.produto.minGrade
+    : item.produto.precoCaixa * item.produto.qtdCaixa;
+
+  total += preco;
+
+  lista.innerHTML += `
+    <p>${item.produto.nome} - ${item.tipo} → R$ ${preco}</p>
+  `;
+});
+
+lista.innerHTML += `<strong>Total: R$ ${total}</strong>`;
+</script>
+</body>
+</html>
