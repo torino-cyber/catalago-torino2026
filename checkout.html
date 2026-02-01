@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Finalizar Pedido | Torino</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Dados do Pedido</h2>
+
+<form onsubmit="enviarWhats(event)">
+  <input required placeholder="Nome">
+  <input required type="email" placeholder="Email">
+  <select required>
+    <option value="">Método de envio</option>
+    <option>Transportadora</option>
+    <option>Correios</option>
+    <option>Retirada</option>
+  </select>
+  <button type="submit">Enviar Pedido</button>
+</form>
+
+<script>
+function enviarWhats(e){
+  e.preventDefault();
+  const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+  let msg = "Pedido Torino:%0A";
+
+  carrinho.forEach(i => {
+    msg += `- ${i.produto.nome} (${i.tipo})%0A`;
+  });
+
+  window.location.href =
+    "https://wa.me/5511939586226?text=" + msg;
+}
+</script>
+</body>
+</html>
